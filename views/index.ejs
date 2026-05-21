@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学習記録管理アプリ</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">学習記録管理</p>
+          <h1>毎日の学びを記録して、成長を見える化しよう</h1>
+          <p class="hero-description">
+            科目ごとの記録、学習時間、目標を一つのページで管理できます。
+            継続的な学習習慣をサポートします。
+          </p>
+          <a class="primary-button" href="#study-summary">記録をはじめる</a>
+        </div>
+        <div class="hero-visual">
+          <div class="summary-card">
+            <h2>学習サマリー</h2>
+            <dl>
+              <div>
+                <dt>記録数</dt>
+                <dd><%= summary.totalRecords %> 件</dd>
+              </div>
+              <div>
+                <dt>累計時間</dt>
+                <dd><%= summary.totalHours %> 時間</dd>
+              </div>
+              <div>
+                <dt>科目数</dt>
+                <dd><%= summary.activeSubjects %> つ</dd>
+              </div>
+              <div>
+                <dt>学習目標</dt>
+                <dd><%= summary.learningGoal %></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section id="features" class="section-panel">
+          <div class="section-header">
+            <h2>できること</h2>
+            <p>このアプリでは、学習の振り返りと計画をかんたんに行えます。</p>
+          </div>
+          <ul class="feature-list">
+            <% features.forEach(feature => { %>
+              <li><span>✔</span><%= feature %></li>
+            <% }) %>
+          </ul>
+        </section>
+
+        <section id="study-summary" class="section-panel">
+          <div class="section-header">
+            <h2>直近の学習</h2>
+            <p>最新の学習記録を確認して、今日の学習を続けましょう。</p>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>科目</th>
+                  <th>内容</th>
+                  <th>時間</th>
+                  <th>日付</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% recentStudies.forEach(study => { %>
+                  <tr>
+                    <td><%= study.subject %></td>
+                    <td><%= study.topic %></td>
+                    <td><%= study.duration %></td>
+                    <td><%= study.date %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
