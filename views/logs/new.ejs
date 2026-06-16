@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学習記録追加</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-icon">
+        <img src="/images/kame.jpg" alt="カメのアイコン" />
+        <span class="header-title">Study-app</span>
+      </div>
+      <div class="header-greeting">
+        <p>こんにちは<%= isLoggedIn ? username : "ゲスト" %>さん</p>
+        <% if (isLoggedIn) { %>
+          <a href="/logout" class="logout-btn">ログアウト</a>
+        <% } %>
+      </div>
+    </header>
+    <main>
+      <h1>学習記録を追加</h1>
+      <form action="/logs" method="POST" class="log-form">
+        <div class="form-group">
+          <label for="subject">科目:</label>
+          <input type="text" id="subject" name="subject" required />
+        </div>
+        <div class="form-group">
+          <label for="duration">学習時間:</label>
+          <input type="number" id="duration" name="duration" required />
+        </div>
+        <div class="form-group">
+          <label for="note">メモ:</label>
+          <textarea id="note" name="note" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="record_date">記録日:</label>
+          <input type="date" id="record_date" name="record_date" />
+        </div>
+        <button type="submit" class="add-log-btn">記録を追加</button>
+      </form>
+    </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>Study-app &copy; 2026</p>
+      <p>今日の学びをしっかり残していこう。</p>
+      <div class="footer-links">
+        <a href="/home">ホーム</a>
+        <a href="/logs/all">すべての学習ログ</a>
+      </div>
+    </div>
+  </footer>

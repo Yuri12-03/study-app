@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学習ログ一覧</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-icon">
+        <img src="/images/kame.jpg" alt="カメのアイコン" />
+        <span class="header-title">Study-app</span>
+      </div>
+      <div class="header-greeting">
+        <p>こんにちは<%= isLoggedIn ? username : "ゲスト" %>さん</p>
+        <% if (isLoggedIn) { %>
+          <a href="/logout" class="logout-btn">ログアウト</a>
+        <% } %>
+      </div>
+    </header>
+    <main>
+      <div class="all-logs-page">
+        <h1>すべての学習ログ</h1>
+        <div class="log-actions">
+          <a href="/home" class="button">ホームに戻る</a>
+          <a href="/logs/new" class="button">新しく記録する</a>
+        </div>
+        <div class="month-filter">
+          <form method="GET" action="/logs/all">
+            <label for="month">表示する月:</label>
+            <select id="month" name="month" onchange="this.form.submit()">
+              <% monthOptions.forEach(function(month) { %>
+                <option value="<%= month %>" <%= selectedMonth === month ? 'selected' : '' %>><%= month %></option>
+              <% }); %>
+            </select>
+          </form>
+        </div>
+        <div class="logs-list">
+          <% if (studyLogs.length === 0) { %>
+            <p>学習ログはまだ登録されていません。</p>
+          <% } else { %>
+            <ul>
+              <% studyLogs.forEach(function(log) { %>
+                <li>
+                  <div class="log-item-header">
+                    <strong><%= log.subject %></strong>
+                    <span><%= log.duration %>時間</span>
+                  </div>
+                  <div class="log-item-meta">
+                    <span>記録日: <%= log.record_date || log.created_at %></span>
+                    <% if (log.note) { %>
+                      <span>メモ: <%= log.note %></span>
+                    <% } %>
+                  </div>
+                  <div class="log-item-actions">
+                    <form action="/logs/<%= log.id %>/delete" method="POST" onsubmit="return confirm('この記録を削除してもよろしいですか？');">
+                      <button type="submit" class="delete-btn">削除</button>
+                    </form>
+                  </div>
+                </li>
+              <% }); %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Study-app &copy; 2026</p>
+        <p>すべての記録を見返して、次の目標を立てよう。</p>
+        <div class="footer-links">
+          <a href="/home">ホーム</a>
+          <a href="/logs/new">記録を追加</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

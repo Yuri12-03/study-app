@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ログイン</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-icon">
+        <img src="/images/kame.jpg" alt="カメのアイコン" />
+        <span class="header-title">Study-app</span>
+      </div>
+      <div class="header-greeting">
+        <p>
+          こんにちは<%= isLoggedIn ? username :
+          "ゲスト" %>さん
+        </p>
+        <% if (isLoggedIn) { %>
+          <a href="/logout" class="logout-btn">ログアウト</a>
+        <% } %>
+      </div>
+    </header>
+    <main>
+      <div class="login-form-wrapper">
+        <h1>ログイン</h1>
+        <form action="/login" method="post">
+          <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">パスワード</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <button type="submit" class="login-btn">ログイン</button>
+        </form>
+      </div>
+      <div class="join-link-wrapper">
+        <p>アカウントをお持ちでない方は<a href="/join">こちら</a></p>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Study-app &copy; 2026</p>
+        <p>学習を記録して、成長を実感しよう。</p>
+        <div class="footer-links">
+          <a href="/home">ホーム</a>
+          <a href="/join">会員登録</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

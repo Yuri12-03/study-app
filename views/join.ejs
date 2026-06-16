@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新規会員登録</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-icon">
+        <img src="/images/kame.jpg" alt="カメのアイコン" />
+        <span class="header-title">Study-app</span>
+      </div>
+      <div class="header-greeting">
+        <p>
+          こんにちは<%= isLoggedIn ? username :
+          "ゲスト" %>さん
+        </p>
+        <% if (isLoggedIn) { %>
+          <a href="/logout" class="logout-btn">ログアウト</a>
+        <% } %>
+      </div>
+    </header>
+    <main>
+      <div class="join-form-wrapper">
+        <h1>新規会員登録</h1>
+        <form action="/join" method="post">
+          <div class="form-group">
+            <label for="name">ユーザー名</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">パスワード</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <button type="submit" class="join-btn">新規会員登録</button>
+        </form>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Study-app &copy; 2026</p>
+        <p>新しい習慣を始めるのが、今日の一歩です。</p>
+        <div class="footer-links">
+          <a href="/home">ホーム</a>
+          <a href="/login">ログイン</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

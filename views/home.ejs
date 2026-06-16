@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>トップページ</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="header-icon">
+                <img src="/images/kame.jpg" alt="カメのアイコン" />
+                <span class="header-title">Study-app</span>
+            </div>
+            <div class="header-greeting">
+                <p>こんにちは<%= isLoggedIn ? username : "ゲスト" %>さん</p>
+                <% if (isLoggedIn) { %>
+                  <a href="/logout" class="logout-btn">ログアウト</a>
+                <% } %>
+            </div>
+        </header>
+        <main>
+            <div class="home-greeting">
+                <h1>Study-appへようこそ！</h1>
+                <p>勉強時間を管理するアプリです。</p>
+                <p>毎日頑張りましょう！</p>
+            </div>
+            <div class="chart-container" style="position: relative; width: 100%; max-width: 800px; margin: 30px auto;">
+                <h2>7週間の学習時間推移</h2>
+                <canvas id="studyChart"></canvas>
+            </div>
+            <div class="study-log">
+                <h2>最新の学習記録</h2>
+                <ul>
+                    <% recentLogs.forEach(function(log) { %>
+                        <li>
+                            <strong><%= log.subject %></strong> - <%= log.duration %>時間
+                            <p><%= log.note %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+                <a href="/logs/all" class="view-all-logs-btn">すべての学習記録を見る</a>
+            </div>
+            <div class="log-actions">
+                <a href="/logs/new" class="add-log-btn">学習記録を追加</a>
+            </div>
+        </main>
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <p>Study-app &copy; 2026</p>
+                <p>毎日の勉強を記録して、続ける習慣にしよう。</p>
+                <div class="footer-links">
+                    <a href="/home">ホーム</a>
+                    <a href="/logs/all">すべての学習ログ</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+    <script>
+        const ctx = document.getElementById('studyChart').getContext('2d');
+        const weekLabels = <%- JSON.stringify(weekLabels) %>;
+        const weeklyData = <%- JSON.stringify(weeklyData) %>;
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: weekLabels,
+                datasets: [{
+                    label: '学習時間（時間）',
+                    data: weeklyData,
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgb(75, 192, 192)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '学習時間（時間）'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</html>
